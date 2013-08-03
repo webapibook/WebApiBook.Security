@@ -8,27 +8,35 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 using WebApiBook.Security.AuthN;
 using WebApiBook.Security.Tests.Utils;
 using Xunit;
 
 namespace WebApiBook.Security.Tests.AuthN
 {
-    public class BasicAuthenticationFilterTests
+    public abstract class BasicAuthenticationTestBase
     {
-        private Func<string, string, Task<IPrincipal>> _validator = (username, password) =>
+        private readonly Action<HttpConfiguration> _config;
+
+        public static Func<string, string, Task<ClaimsPrincipal>> TestValidator = (username, password) =>
         {
             var princ = username == password ? new ClaimsPrincipal(new GenericIdentity(username)) : null;
-            return Task.FromResult(princ as IPrincipal);
+            return Task.FromResult(princ);
         };
+
+        protected BasicAuthenticationTestBase(Action<HttpConfiguration> config)
+        {
+            _config = config;
+        }
 
         [Fact]
         public async Task Correctly_authenticated_request_has_a_valid_User()
         {
             await Tester.Run(
-                withConfiguration: config =>
+                withConfiguration: configuration =>
                 {
-                    config.Filters.Add(new BasicAuthenticationFilter("myrealm", _validator));
+                    _config(configuration);
                 },
                 withRequest: () =>
                 {
@@ -54,9 +62,9 @@ namespace WebApiBook.Security.Tests.AuthN
         public async Task Correctly_authenticated_request_does_not_return_a_challenge()
         {
             await Tester.Run(
-                withConfiguration: config =>
+                withConfiguration: configuration =>
                 {
-                    config.Filters.Add(new BasicAuthenticationFilter("myrealm", _validator));
+                    _config(configuration);
                 },
                 withRequest: () =>
                 {
@@ -83,9 +91,9 @@ namespace WebApiBook.Security.Tests.AuthN
         public async Task Incorrectly_authenticated_request_returns_a_401_with_only_one_challenge()
         {
             await Tester.Run(
-                withConfiguration: config =>
+                withConfiguration: configuration =>
                 {
-                    config.Filters.Add(new BasicAuthenticationFilter("myrealm", _validator));
+                    _config(configuration);
                 },
                 withRequest: () =>
                 {
@@ -113,9 +121,9 @@ namespace WebApiBook.Security.Tests.AuthN
         public async Task Non_authenticated_request_reaches_controller_with_an_unauthenticated_user()
         {
             await Tester.Run(
-                withConfiguration: config =>
+                withConfiguration: configuration =>
                 {
-                    config.Filters.Add(new BasicAuthenticationFilter("myrealm", _validator));
+                    _config(configuration);
                 },
                 withRequest: () =>
                 {
@@ -139,9 +147,9 @@ namespace WebApiBook.Security.Tests.AuthN
         public async Task Supports_UTF8_usernames_and_password()
         {
             await Tester.Run(
-                 withConfiguration: config =>
+                 withConfiguration: configuration =>
                  {
-                     config.Filters.Add(new BasicAuthenticationFilter("myrealm", _validator));
+                     _config(configuration);
                  },
                  withRequest: () =>
                  {

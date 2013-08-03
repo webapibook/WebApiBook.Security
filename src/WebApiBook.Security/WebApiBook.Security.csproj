@@ -53,8 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthN\BasicAuthenticationDelegatingHandler.cs" />
     <Compile Include="AuthN\BasicAuthenticationFilter.cs" />
     <Compile Include="Common\ActionResultDelegate.cs" />
+    <Compile Include="Common\HttpRequestMessageExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
