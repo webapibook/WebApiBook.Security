@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WebApiBook.Security.Common
 {
-    public static class HttpRequestMessageExtensions
+    public static class BasicAuthenticationExtensions
     {
         public static bool HasAuthorizationHeaderWithBasicScheme(this HttpRequestMessage req)
         {
@@ -16,13 +16,14 @@ namespace WebApiBook.Security.Common
                    && req.Headers.Authorization.Scheme.Equals("Basic", StringComparison.OrdinalIgnoreCase);
         }
 
-        public static async Task<ClaimsPrincipal> TryGetPrincipalFromBasicCredentialsUsing(this HttpRequestMessage req, 
-            Func<string,string,Task<ClaimsPrincipal>> validate)
+        public static async Task<TPrinc> TryGetPrincipalFromBasicCredentialsUsing<TPrinc>(this string credentials,
+            Func<string, string, Task<TPrinc>> validate) where TPrinc:class
         {
             string pair;
             try
             {
-                pair = Encoding.UTF8.GetString(Convert.FromBase64String(req.Headers.Authorization.Parameter));
+                pair = Encoding.UTF8.GetString(
+                    Convert.FromBase64String(credentials));
             }
             catch (FormatException)
             {
@@ -37,6 +38,13 @@ namespace WebApiBook.Security.Common
             var username = pair.Substring(0, ix);
             var pw = pair.Substring(ix + 1);
             return await validate(username, pw);
+        }
+
+        public static Task<ClaimsPrincipal> TryGetPrincipalFromBasicCredentialsUsing(
+            this HttpRequestMessage req, 
+            Func<string,string,Task<ClaimsPrincipal>> validate)
+        {
+            return req.Headers.Authorization.Parameter.TryGetPrincipalFromBasicCredentialsUsing(validate);
         }
     }
 }

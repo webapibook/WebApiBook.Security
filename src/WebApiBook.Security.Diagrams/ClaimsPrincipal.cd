@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="System.Security.Claims.ClaimsPrincipal">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <Members>
+      <Method Name="AddIdentities" Hidden="true" />
+      <Method Name="AddIdentity" Hidden="true" />
+      <Method Name="ClaimsPrincipal" Hidden="true" />
+      <Method Name="FindAll" Hidden="true" />
+      <Method Name="FindFirst" Hidden="true" />
+      <Method Name="GetObjectData" Hidden="true" />
+      <Method Name="HasClaim" Hidden="true" />
+      <Method Name="IsInRole" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+    <ShowAsCollectionAssociation>
+      <Property Name="Identities" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="System.Security.Claims.ClaimsIdentity">
+    <Position X="3.5" Y="0.5" Width="2" />
+    <Members>
+      <Method Name="AddClaim" Hidden="true" />
+      <Method Name="AddClaims" Hidden="true" />
+      <Method Name="ClaimsIdentity" Hidden="true" />
+      <Method Name="Clone" Hidden="true" />
+      <Field Name="DefaultIssuer" Hidden="true" />
+      <Field Name="DefaultNameClaimType" Hidden="true" />
+      <Field Name="DefaultRoleClaimType" Hidden="true" />
+      <Method Name="FindAll" Hidden="true" />
+      <Method Name="FindFirst" Hidden="true" />
+      <Method Name="GetObjectData" Hidden="true" />
+      <Method Name="HasClaim" Hidden="true" />
+      <Method Name="RemoveClaim" Hidden="true" />
+      <Method Name="TryRemoveClaim" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="System.Security.Principal.WindowsPrincipal" Collapsed="true">
+    <Position X="1" Y="4.75" Width="1.5" />
+    <InheritanceLine Type="System.Security.Claims.ClaimsPrincipal" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="0.777" Y="2.373" />
+        <Point X="0.777" Y="5.125" />
+        <Point X="1" Y="5.125" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="System.Security.Principal.GenericPrincipal" Collapsed="true">
+    <Position X="1" Y="3.25" Width="1.5" />
+    <InheritanceLine Type="System.Security.Claims.ClaimsPrincipal" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="0.777" Y="2.373" />
+        <Point X="0.777" Y="3.562" />
+        <Point X="1" Y="3.562" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="System.Web.Security.RolePrincipal" Collapsed="true">
+    <Position X="1" Y="4" Width="1.5" />
+    <InheritanceLine Type="System.Security.Claims.ClaimsPrincipal" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="0.777" Y="2.373" />
+        <Point X="0.777" Y="4.375" />
+        <Point X="1" Y="4.375" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+    <Lollipop Orientation="Right" Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="System.Web.Security.FormsIdentity" Collapsed="true">
+    <Position X="4" Y="4" Width="1.5" />
+    <InheritanceLine Type="System.Security.Claims.ClaimsIdentity" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.857" Y="3.142" />
+        <Point X="3.857" Y="4.375" />
+        <Point X="4" Y="4.375" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="System.Security.Principal.GenericIdentity" Collapsed="true">
+    <Position X="4" Y="3.25" Width="1.5" />
+    <InheritanceLine Type="System.Security.Claims.ClaimsIdentity" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.857" Y="3.142" />
+        <Point X="3.857" Y="3.625" />
+        <Point X="4" Y="3.625" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="System.Security.Principal.WindowsIdentity" Collapsed="true">
+    <Position X="4" Y="4.75" Width="1.5" />
+    <InheritanceLine Type="System.Security.Claims.ClaimsIdentity" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.857" Y="3.142" />
+        <Point X="3.857" Y="5.062" />
+        <Point X="4" Y="5.062" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+    <Lollipop Orientation="Right" Position="0.1" Collapsed="true" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

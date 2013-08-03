@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="System.Security.Claims.Claim">
+    <Position X="0.5" Y="1" Width="2.75" />
+    <Members>
+      <Method Name="Claim" Hidden="true" />
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="Subject" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="System.Security.Claims.ClaimsIdentity">
+    <Position X="5.5" Y="1" Width="2.5" />
+    <Members>
+      <Method Name="AddClaim" Hidden="true" />
+      <Method Name="AddClaims" Hidden="true" />
+      <Method Name="ClaimsIdentity" Hidden="true" />
+      <Method Name="Clone" Hidden="true" />
+      <Field Name="DefaultIssuer" Hidden="true" />
+      <Field Name="DefaultNameClaimType" Hidden="true" />
+      <Field Name="DefaultRoleClaimType" Hidden="true" />
+      <Method Name="FindAll" Hidden="true" />
+      <Method Name="FindFirst" Hidden="true" />
+      <Method Name="GetObjectData" Hidden="true" />
+      <Method Name="HasClaim" Hidden="true" />
+      <Method Name="RemoveClaim" Hidden="true" />
+      <Method Name="TryRemoveClaim" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+    <ShowAsCollectionAssociation>
+      <Property Name="Claims" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

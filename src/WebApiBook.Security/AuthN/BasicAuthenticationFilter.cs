@@ -20,7 +20,7 @@ namespace WebApiBook.Security.AuthN
     {
         private readonly Func<string, string, Task<ClaimsPrincipal>> _validator;
         private readonly string _realm;
-        public bool AllowMultiple { get { return false; } }
+        public bool AllowMultiple { get { return true; } }
 
         public BasicAuthenticationFilter(string realm, Func<string, string, Task<ClaimsPrincipal>> validator)
         {

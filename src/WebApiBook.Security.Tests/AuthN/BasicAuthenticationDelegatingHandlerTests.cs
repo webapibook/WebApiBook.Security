@@ -9,16 +9,9 @@ using WebApiBook.Security.AuthN;
 
 namespace WebApiBook.Security.Tests.AuthN
 {
-    public class BasicAuthenticationFilterTest : BasicAuthenticationTestBase
+    public class BasicAuthenticationDelegatingHandlerTests : BasicAuthenticationTestBase
     {
-        public BasicAuthenticationFilterTest()
-            : base(config => config.Filters.Add(new BasicAuthenticationFilter("myrealm", BasicAuthenticationTestBase.TestValidator)))
-        {}
-    }
-
-    public class BasicAuthenticationDelegatingHandlerTest : BasicAuthenticationTestBase
-    {
-        public BasicAuthenticationDelegatingHandlerTest()
+        public BasicAuthenticationDelegatingHandlerTests()
             : base(config => config.MessageHandlers.Add(new BasicAuthenticationDelegatingHandler(
                 config.Services.GetService(typeof(IHostPrincipalService)) as IHostPrincipalService,
                 "myrealm", BasicAuthenticationTestBase.TestValidator)))
