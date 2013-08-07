@@ -138,7 +138,7 @@ namespace WebApiBook.Security.Tests.AuthN
                 },
                 assertRequest: ctx =>
                 {
-                    Assert.False(true, "should not reach next middleware");
+                    ctx.Response.StatusCode = ctx.Request.User == null || !ctx.Request.User.Identity.IsAuthenticated ? 401 : 200;
                 },
                 assertResponse: response =>
                 {

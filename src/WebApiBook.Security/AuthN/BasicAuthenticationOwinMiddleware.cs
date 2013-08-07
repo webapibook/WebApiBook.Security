@@ -32,8 +32,7 @@ namespace WebApiBook.Security.AuthN
         public string Realm { get; set; }
 
         public BasicAuthenticationOptions()
-            : base("Basic")
-        { }
+            : base("Basic"){ }
     }
 
     public static class BasicAuthnMiddlewareExtensions
@@ -46,8 +45,6 @@ namespace WebApiBook.Security.AuthN
 
     class BasicAuthenticationHandler : AuthenticationHandler<BasicAuthenticationOptions>
     {
-        private bool _terminateRequest = false;
-
         protected override async Task<AuthenticationTicket> AuthenticateCoreAsync()
         {
             var authzValue = Request.Headers.Get("Authorization");
@@ -57,9 +54,7 @@ namespace WebApiBook.Security.AuthN
             }
             var token = authzValue.Substring("Basic ".Length).Trim();
 
-            var princ = await token.TryGetPrincipalFromBasicCredentialsUsing(Options.ValidateCredentials);
-            if (princ == null) _terminateRequest = true;
-            return princ;
+            return await token.TryGetPrincipalFromBasicCredentialsUsing(Options.ValidateCredentials);
         }
 
         protected override Task ApplyResponseChallengeAsync()
@@ -69,15 +64,6 @@ namespace WebApiBook.Security.AuthN
                 Response.Headers.Append("WWW-Authenticate", "Basic realm=" + Options.Realm);
             }
             return Task.FromResult<object>(null);
-        }
-
-        public override Task<bool> InvokeAsync()
-        {
-            if (_terminateRequest)
-            {
-                Response.StatusCode = 401;
-            }
-            return Task.FromResult(_terminateRequest);
         }
     }
 }
