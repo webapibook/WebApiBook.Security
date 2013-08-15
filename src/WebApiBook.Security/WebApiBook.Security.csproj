@@ -47,6 +47,9 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.1.0.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -67,6 +70,7 @@
     <Compile Include="AuthN\BasicAuthenticationDelegatingHandler.cs" />
     <Compile Include="AuthN\BasicAuthenticationFilter.cs" />
     <Compile Include="AuthN\BasicAuthenticationOwinMiddleware.cs" />
+    <Compile Include="AuthN\JwtAuthenticationOwinMiddleware.cs" />
     <Compile Include="Common\ActionResultDelegate.cs" />
     <Compile Include="Common\CertthumbprintSet.cs" />
     <Compile Include="Common\CertValidateInfo.cs" />
