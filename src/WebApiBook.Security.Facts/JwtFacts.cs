@@ -28,7 +28,7 @@ namespace WebApiBook.Security.Facts
         public void Can_create_and_consume_jwt_tokens()
         {
             const string issuer = "http://issuer.webapibook.net";
-            const string audience = "http://example.net";
+            const string audience = "the.client@apps.example.net";
             const int lifetimeInMinutes = 5;
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -41,22 +41,18 @@ namespace WebApiBook.Security.Facts
 
             var now = DateTime.UtcNow;
 
-            var tokenDescriptor = new SecurityTokenDescriptor
+            var claims = new[]
             {
-                Subject = new ClaimsIdentity(new []
-                        {
-                            new Claim("sub", "alice@webapibook.net"),
-                            new Claim("email", "alice@webapibook.net"), 
-                            new Claim("name", "Alice"), 
-                        }),
-                TokenIssuerName = issuer,
-                AppliesToAddress = audience,
-                Lifetime = new Lifetime(now, now.AddMinutes(lifetimeInMinutes)),
-                SigningCredentials = signingCredentials,
+                new Claim("sub", "alice@webapibook.net"),
+                new Claim("email", "alice@webapibook.net"),
+                new Claim("name", "Alice"),
             };
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var token = new JwtSecurityToken(issuer, audience, claims,
+                new Lifetime(now, now.AddMinutes(lifetimeInMinutes)), signingCredentials);
+
             var tokenString = tokenHandler.WriteToken(token);
+
             var parts = tokenString.Split('.');
             Assert.Equal(3, parts.Length);
 
