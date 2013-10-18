@@ -12,13 +12,11 @@ namespace WebApiBook.Security.AuthN
 {
     public class BasicAuthenticationDelegatingHandler : DelegatingHandler
     {
-        private readonly IHostPrincipalService _principalService;
         private readonly Func<string, string, Task<ClaimsPrincipal>> _validator;
         private readonly string _realm;
 
-        public BasicAuthenticationDelegatingHandler(IHostPrincipalService principalService, string realm, Func<string, string, Task<ClaimsPrincipal>> validator)
+        public BasicAuthenticationDelegatingHandler(string realm, Func<string, string, Task<ClaimsPrincipal>> validator)
         {
-            _principalService = principalService;
             _validator = validator;
             _realm = "realm=" + realm;
         }
@@ -36,7 +34,7 @@ namespace WebApiBook.Security.AuthN
                 var principal = await request.TryGetPrincipalFromBasicCredentialsUsing(_validator);
                 if (principal != null)
                 {
-                    _principalService.SetCurrentPrincipal(principal, request);
+                    request.GetRequestContext().Principal = principal;
                     res = await base.SendAsync(request, cancellationToken);
                 }
                 else

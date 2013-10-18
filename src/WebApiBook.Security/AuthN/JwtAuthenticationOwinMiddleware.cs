@@ -72,7 +72,7 @@ namespace WebApiBook.Security.AuthN
             {
                 return Task.FromResult<AuthenticationTicket>(null);
             }
-            catch (SecurityTokenValidationException e)
+            catch (SecurityTokenValidationException)
             {
                 return Task.FromResult<AuthenticationTicket>(null);
             }

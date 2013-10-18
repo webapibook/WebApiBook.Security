@@ -24,25 +24,25 @@ namespace WebApiBook.Security.Facts
             const string x509AuthnMethod = "http://schemas.microsoft.com/ws/2008/06/identity/authenticationmethod/x509";
             config.MessageHandlers.Add(new X509CertificateMessageHandler(
                 X509CertificateValidator.None,
-                IssuerMapper.FromIssuerRegistry(new SimpleIssuerNameRegistry()),
-                config.Services.GetService(typeof(IHostPrincipalService)) as IHostPrincipalService));
+                IssuerMapper.FromIssuerRegistry(new SimpleIssuerNameRegistry())
+                ));
             config.MessageHandlers.Add(new
-                FuncBasedDelegatingHandler(async (req, cont) =>
+                FuncBasedDelegatingHandler((req, cont) =>
                 {
                     const string issuer = "CN=Demo Certification Authority, O=Web API Book";
                     var principal = Thread.CurrentPrincipal as ClaimsPrincipal;
-                    if (principal == null) return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                    if (principal == null) return Task.FromResult(new HttpResponseMessage(HttpStatusCode.Unauthorized));
                     var identity =
                         principal.Identities.FirstOrDefault(id => id.AuthenticationType == x509AuthnMethod);
-                    if (identity == null) return new HttpResponseMessage(HttpStatusCode.Unauthorized);
-                    return
+                    if (identity == null) return Task.FromResult(new HttpResponseMessage(HttpStatusCode.Unauthorized));
+                    return Task.FromResult(
                         new HttpResponseMessage(
                             identity.Claims.Any(
                                 claim => claim.Type == ClaimTypes.Email
                                     && claim.Value == "bob@webapibook.net"
                                     && claim.Issuer == issuer)
                                 ? HttpStatusCode.OK
-                                : HttpStatusCode.Unauthorized);
+                                : HttpStatusCode.Unauthorized));
                 }));
 
             config.ClientCredentialType = HttpClientCredentialType.Certificate;

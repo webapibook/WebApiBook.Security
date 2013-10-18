@@ -17,20 +17,17 @@ namespace WebApiBook.Security.Common
     {
         private readonly X509CertificateValidator _validator;
         private readonly Func<X509Certificate2, string> _issuerMapper;
-        private readonly IHostPrincipalService _hostPrincipalService;
-
+        
         const string X509AuthnMethod =
             "http://schemas.microsoft.com/ws/2008/06/identity/authenticationmethod/x509";
 
         public X509CertificateMessageHandler(
             X509CertificateValidator validator,
-            Func<X509Certificate2, string> issuerMapper,
-            IHostPrincipalService hostPrincipalService
+            Func<X509Certificate2, string> issuerMapper
             )
         {
             _validator = validator;
             _issuerMapper = issuerMapper;
-            _hostPrincipalService = hostPrincipalService;
         }
 
         protected override async Task<HttpResponseMessage> SendAsync(
@@ -82,11 +79,11 @@ namespace WebApiBook.Security.Common
 
         private void AddIdentityToCurrentPrincipal(ClaimsIdentity identity, HttpRequestMessage request)
         {
-            var principal = _hostPrincipalService.GetCurrentPrincipal(request) as ClaimsPrincipal;
+            var principal = request.GetRequestContext().Principal as ClaimsPrincipal;
             if (principal == null)
             {
                 principal = new ClaimsPrincipal(identity);
-                _hostPrincipalService.SetCurrentPrincipal(principal, request);
+                request.GetRequestContext().Principal = principal;
             }
             else
             {

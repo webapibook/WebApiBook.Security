@@ -13,7 +13,6 @@ namespace WebApiBook.Security.Tests.AuthN
     {
         public BasicAuthenticationDelegatingHandlerTests()
             : base(config => config.MessageHandlers.Add(new BasicAuthenticationDelegatingHandler(
-                config.Services.GetService(typeof(IHostPrincipalService)) as IHostPrincipalService,
                 "myrealm", BasicAuthenticationTestBase.TestValidator)))
         { }
     }

@@ -14,10 +14,10 @@ namespace WebApiBook.Security.Facts
 {
     public class CertPinningFacts
     {
-        private const string microsoftSecureServerAuthority = "3add0e7ea2b284ff459e137365b482d188dfbf8a";
-        private const string microsoftInternetAuthority = "e5958d48fe10d7340311e8c03bb22940daba2da3";
+        private const string MsItMachineAuthCa2 = "ef86b413f0fc25ac512b8be9b6ec70f6da341655";
+        private const string microsoftInternetAuthority = "992ad44d7dce298de17e6f2f56a7b9caa41db93f";
         private readonly CertThumbprintSet msftThumbs = new CertThumbprintSet(
-            microsoftSecureServerAuthority,
+            MsItMachineAuthCa2,
             microsoftInternetAuthority);
 
         [Fact]

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware&lt;TOptions&gt;">
+    <Position X="0.5" Y="0.5" Width="2.5" />
+    <Members>
+      <Method Name="AuthenticationMiddleware" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Microsoft.Owin.Security.Infrastructure.AuthenticationHandler">
+    <Position X="3.5" Y="0.5" Width="2.5" />
+    <Members>
+      <Method Name="AuthenticationHandler" Hidden="true" />
+      <Method Name="BaseInitializeAsync" Hidden="true" />
+      <Property Name="Context" Hidden="true" />
+      <Method Name="GenerateCorrelationId" Hidden="true" />
+      <Property Name="Helper" Hidden="true" />
+      <Property Name="Request" Hidden="true" />
+      <Property Name="RequestPathBase" Hidden="true" />
+      <Property Name="Response" Hidden="true" />
+      <Method Name="ValidateCorrelationId" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Microsoft.Owin.Security.Infrastructure.AuthenticationHandler&lt;TOptions&gt;">
+    <Position X="3.5" Y="3.25" Width="2.5" />
+    <Members>
+      <Method Name="AuthenticationHandler" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Microsoft.Owin.Security.AuthenticationOptions">
+    <Position X="0.5" Y="3" Width="2.5" />
+    <Members>
+      <Method Name="AuthenticationOptions" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

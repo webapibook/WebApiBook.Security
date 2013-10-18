@@ -15,8 +15,7 @@ namespace WebApiBook.Security.Tests.AuthN
             Action<IOwinContext> assertRequest,
             Action<HttpResponseMessage> assertResponse)
         {
-            var server = new TestServer();
-            server.Open(app =>
+            var server = TestServer.Create(app =>
             {
                 useConfiguration(app);
                 app.Use((ctx, next) =>

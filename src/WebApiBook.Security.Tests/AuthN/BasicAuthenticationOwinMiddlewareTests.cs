@@ -19,23 +19,18 @@ namespace WebApiBook.Security.Tests.AuthN
 {
     public class BasicAuthenticationOwinMiddlewareTests
     {
-        private BasicAuthenticationOptions Options = new BasicAuthenticationOptions
+        private BasicAuthenticationOptions Options = new BasicAuthenticationOptions("webapibook", (un, pw) =>
         {
-            ValidateCredentials = (un, pw) =>
-            {
-                var t = un != pw
-                    ? null
-                    : new AuthenticationTicket
-                        (
-                        new ClaimsIdentity(new GenericIdentity(un)),
-                        new AuthenticationProperties()
-                        );
+            var t = un != pw
+                ? null
+                : new AuthenticationTicket
+                    (
+                    new ClaimsIdentity(new GenericIdentity(un)),
+                    new AuthenticationProperties()
+                    );
 
-                return Task.FromResult(t);
-            },
-            Realm = "webapibook"
-        };
-
+            return Task.FromResult(t);
+        });
        
         [Fact]
         public async Task Correctly_authenticated_request_has_a_valid_User()
