@@ -90,6 +90,7 @@ namespace WebApiBook.Security.Facts
 
         public ClaimsAuthorizeAttributeFacts()
         {
+            Thread.CurrentPrincipal = new ClaimsPrincipal(new ClaimsIdentity());
             _config = new HttpConfiguration();
             _config.Routes.MapHttpRoute(
                 "ApiDefault",

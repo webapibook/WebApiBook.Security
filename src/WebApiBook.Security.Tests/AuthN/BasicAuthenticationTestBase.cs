@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using WebApiBook.Security.AuthN;
@@ -27,6 +28,7 @@ namespace WebApiBook.Security.Tests.AuthN
 
         protected BasicAuthenticationTestBase(Action<HttpConfiguration> config)
         {
+            Thread.CurrentPrincipal = new ClaimsPrincipal(new ClaimsIdentity());
             Config = config;
         }
 

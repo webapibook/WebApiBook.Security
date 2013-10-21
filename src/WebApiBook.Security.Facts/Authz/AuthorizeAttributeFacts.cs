@@ -1,7 +1,9 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Principal;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Controllers;
@@ -42,6 +44,7 @@ namespace WebApiBook.Security.Facts.Authz
 
         public AuthorizeAttributeFacts()
         {
+            Thread.CurrentPrincipal = new ClaimsPrincipal(new ClaimsIdentity());
             _config = new HttpConfiguration();
             _config.Routes.MapHttpRoute(
                 "ApiDefault",
