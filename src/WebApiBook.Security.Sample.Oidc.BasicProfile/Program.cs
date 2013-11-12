@@ -198,41 +198,36 @@ namespace WebApiBook.Security.Sample.Oidc.BasicProfile
 
                     Log.Info("Great, we have an access token {0}. Lets use it ...",
                              theAccessToken);
-                    using (var resourceClient = new HttpClient())
+                    var resourceClient = new HttpClient();
+                    Log.Info("First, get the UserInfo...");
+                    var request = new HttpRequestMessage(HttpMethod.Get, Config.AuthzServer.UserInfo);
+                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", theAccessToken);
+                    var userInfoResp = await resourceClient.SendAsync(request);
+                    if (userInfoResp.StatusCode != HttpStatusCode.OK)
                     {
-                        Log.Info("First, get the UserInfo...");
-                        var request = new HttpRequestMessage(HttpMethod.Get, Config.AuthzServer.UserInfo);
-                        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", theAccessToken);
-                        var userInfoResp = await resourceClient.SendAsync(request);
-                        if (userInfoResp.StatusCode != HttpStatusCode.OK)
-                        {
-                            return Error("Unfortunately, the UserInfo return should be OK but is {0}, ending", userInfoResp.StatusCode);
-                        }
-                        if (userInfoResp.Content.Headers.ContentType.MediaType != "application/json")
-                        {
-                            return Error("Unfortunately, the UserInfo representation should be 'application/json' but is {0}, ending", userInfoResp.Content.Headers.ContentType.MediaType);
-                        }
-                        var userInfo = await userInfoResp.Content.ReadAsAsync<JObject>();
-                        Log.Info("--- BEGIN UserInfo ---");
-                        Log.Info("{0}",userInfo);
-                        Log.Info("--- END UserInfo ---");
+                        return Error("Unfortunately, the UserInfo return should be OK but is {0}, ending", userInfoResp.StatusCode);
+                    }
+                    if (userInfoResp.Content.Headers.ContentType.MediaType != "application/json")
+                    {
+                        return Error("Unfortunately, the UserInfo representation should be 'application/json' but is {0}, ending", userInfoResp.Content.Headers.ContentType.MediaType);
+                    }
+                    var userInfo = await userInfoResp.Content.ReadAsAsync<JObject>();
+                    Log.Info("--- BEGIN UserInfo ---");
+                    Log.Info("{0}",userInfo);
+                    Log.Info("--- END UserInfo ---");
                             
-                        Log.Info("Returning the resource server response, I hope you liked this demo ...");
-                        return userInfoResp;
-                    }
-
-                    /*
-                    Log.Info("Great, we have an access token {0}. Lets use it to GET the resource representation",
+                    //Log.Info("Returning the resource server response, I hope you liked this demo ...");
+                    //return Request.CreateResponse(HttpStatusCode.OK, userInfo);
+                    
+                    
+                    Log.Info("Great, lets use the access token to GET the protected resource representation",
                              theAccessToken);
-                    using (var resourceClient = new HttpClient())
-                    {
-                        var request = new HttpRequestMessage(HttpMethod.Get, Config.ExampleResource.Uri);
-                        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", theAccessToken);
-                        var resourceResp = resourceClient.SendAsync(request).Result;
-                        Log.Info("Returning the resource server response, I hope you liked this demo ...");
-                        return resourceResp;
-                    }
-                     */ 
+                    request = new HttpRequestMessage(HttpMethod.Get, Config.ExampleResource.Uri);
+                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", theAccessToken);
+                    var resourceResp = resourceClient.SendAsync(request).Result;
+                    var resourceRespCont = resourceResp.Content.ReadAsAsync<JObject>();
+                    Log.Info("Returning the resource server response, I hope you liked this demo ...");
+                    return Request.CreateResponse(HttpStatusCode.OK, resourceRespCont);
                 }
             }
             catch (Exception e)
