@@ -73,7 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authz\AuthorizeAttributeFacts.cs" />
-    <Compile Include="Authz\Class1.cs" />
+    <Compile Include="Authz\UseClaimsAuthorizationManager.cs" />
     <Compile Include="Authz\ScopeAuthorizationFacts.cs" />
     <Compile Include="CertPinningFacts.cs" />
     <Compile Include="ClaimFacts.cs" />
